@@ -10,7 +10,6 @@ import {
     faEarthAsia,
     faCircleQuestion,
     faKeyboard,
-    faCloudUpload,
     faUser,
     faCoins,
     faGear,
@@ -20,11 +19,13 @@ import Tippy from '@tippyjs/react';
 import HeadlessTippy from '@tippyjs/react/headless';
 import 'tippy.js/dist/tippy.css';
 
-import images from '~/images';
+import images from '~/assets/images';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import AccountItem from '~/components/AccountItem';
 import Button from '~/components/Button';
 import Menu from '~/components/Popper/Menu';
+import { InboxIcon, MessageIcon, UploadIcon } from '~/components/Icons';
+import Image from '~/components/Image';
 
 const cx = classname.bind(styles);
 const MENU_ITEMS = [
@@ -80,13 +81,11 @@ function Header() {
             icon: <FontAwesomeIcon icon={faUser} />,
             title: 'View Profile',
             to: '/@hlanhuong',
-            
         },
         {
             icon: <FontAwesomeIcon icon={faCoins} />,
             title: 'Get coins',
             to: '/coin',
-            
         },
         {
             icon: <FontAwesomeIcon icon={faGear} />,
@@ -100,7 +99,6 @@ function Header() {
             to: '/logout',
             separate: true,
         },
-        
     ];
     return (
         <header className={cx('wrapper')}>
@@ -153,7 +151,27 @@ function Header() {
                                 placement="bottom"
                             >
                                 <button className={cx('action-btn')}>
-                                    <FontAwesomeIcon icon={faCloudUpload} />
+                                    <UploadIcon />
+                                </button>
+                            </Tippy>
+                            <Tippy
+                                delay={[0, 200]}
+                                content="Message"
+                                placement="bottom"
+                            >
+                                <button className={cx('action-btn')}>
+                                    <MessageIcon/>
+
+                                </button>
+                            </Tippy>
+                            <Tippy
+                                delay={[0, 200]}
+                                content="Inbox "
+                                placement="bottom"
+                            >
+                                <button className={cx('action-btn')}>
+                                    <InboxIcon/>
+                                    <span className={cx('badge')}>13</span>
                                 </button>
                             </Tippy>
                         </>
@@ -163,12 +181,16 @@ function Header() {
                             <Button primary>Login</Button>
                         </>
                     )}
-                    <Menu items={userMenu ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
+                    <Menu
+                        items={userMenu ? userMenu : MENU_ITEMS}
+                        onChange={handleMenuChange}
+                    >
                         {currentUser ? (
-                            <img
-                                src="https://p16-sign-sg.tiktokcdn.com/tos-alisg-avt-0068/2ef2ae987d706e7c2576cd0cc307f888~tplv-tiktokx-cropcenter:100:100.jpeg?dr=14579&refresh_token=376517f5&x-expires=1768050000&x-signature=YxBP8VM%2FUfoV2UuqDwZef78JIEA%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=a1d2006b&idc=my"
+                            <Image
+                                src="https://p16-sign-sg.tiktokcdn.com/tos-alisg-avt-0068/2ef2ae987d706e7c2576cd0cc307f888~tplv-tiktokx-cropcenter:100:100.jpeg?dr=14579&refresh_token=376517f5&"
                                 className={cx('user-avatar')}
                                 alt="Nguyen Van A"
+                                fallback="https://p16-sign-sg.tiktokcdn.com/tos-alisg-avt-0068/bfde8d83739f35c910e985246eab0716~tplv-tiktokx-cropcenter:1080:1080.jpeg?dr=14579&refresh_token=9f98ad4f&x-expires=1768140000&x-signature=1p091w66XvhBfjsSwp0cfiGUpxc%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=81f88b70&idc=my"
                             />
                         ) : (
                             <button className={cx('more-btn')}>
